@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ServiceStack;
+using System.Linq;
 
 namespace App.Repository.Repository
 {
@@ -29,10 +30,10 @@ namespace App.Repository.Repository
             return data.SingleOrDefault();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<List<TEntity>> GetAll()
         {
-            var all = await DbSet.FindAsync(Builders<TEntity>.Filter.Empty);
-            return all.ToList();
+            var all = DbSet.Find(Builders<TEntity>.Filter.Empty).Limit(10);
+            return await all.ToListAsync();
         }
 
         public virtual void Update(TEntity obj)

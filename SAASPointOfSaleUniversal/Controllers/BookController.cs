@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Models;
+﻿using App.Models;
 using App.Repository.Interfaces;
-using App.Repository.UoW;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
@@ -20,6 +16,9 @@ namespace WebApp.Controllers
         // GET: Book
         public async Task<ActionResult> Index()
         {
+            var getFiter = MongoDB.Driver.Builders<Book>.Filter;
+            getFiter.Eq("_id", "");
+           
             var book = await unitOfWork.Repository<Book>().GetAll();
             return View(book);
         }

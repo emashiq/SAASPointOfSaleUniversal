@@ -13,5 +13,8 @@ namespace App.Models
 
         [BsonElement("WritterName")]
         public string WritterName { get; set; }
+
+        [BsonElement("Price")]
+        public decimal? Price { get; set; }
     }
 }
