@@ -1,4 +1,7 @@
-﻿using AspNetCore.Identity.Mongo;
+﻿using App.Repository.Context;
+using App.Repository.Interfaces;
+using App.Repository.UoW;
+using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +36,8 @@ namespace SAASPointOfSaleUniversal
             {
                 mongo.ConnectionString = ConnectionString;
             });
-
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IMongoContext, MongoContext>();
             services.AddTransient<WebApp.Mailing.IEmailSender, EmailSender>();
 
 

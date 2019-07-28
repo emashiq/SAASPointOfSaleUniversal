@@ -1,0 +1,51 @@
+﻿@model IEnumerable<App.Models.Book>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayName("WritterName")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WritterName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="User" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form method="post" action="/user/delete">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
